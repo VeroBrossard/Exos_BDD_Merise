@@ -1,0 +1,12 @@
+correction Nicolas TD2
+
+SELECT livres.titre, genre.genre, livres.nom_auteur, livres.prenom_auteur, 
+case 
+when date_emprunt IS NULL AND date_retour IS NULL THEN "dispo"
+when date_emprunt IS NOT NULL AND date_retour IS NULL THEN "non dispo"
+when date_emprunt IS NOT NULL AND date_retour IS NOT NULL THEN "dispo"
+END
+as disponibilité
+ from livres INNER JOIN genre on livres.id_GENRE = genre.id left JOIN registre on livres.id = registre.id_LIVRES GROUP BY livres.titre;
+select livres.titre, client.nom, client.prenom, registre.date_emprunt, registre.date_retour from registre INNER JOIN client on client.id = registre.id_CLIENT INNER JOIN livres on livres.id = registre.id_LIVRES;
+SELECT genre.genre, COUNT(livres.titre) as "total livres" from genre INNER JOIN livres on livres.id_GENRE = genre.id GROUP BY genre.genre;
